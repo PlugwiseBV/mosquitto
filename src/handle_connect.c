@@ -563,6 +563,9 @@ int handle__connect(struct mosquitto_db *db, struct mosquitto *context)
 		if(found_context->sock == INVALID_SOCKET){
 			/* Client is reconnecting after a disconnect */
 			/* FIXME - does anything need to be done here? */
+			if(db->config->connection_messages == true){
+				log__printf(NULL, MOSQ_LOG_DEBUG, "Client %s reconnects.", client_id);
+			}
 		}else{
 			/* Client is already connected, disconnect old version. This is
 			 * done in context__cleanup() below. */
