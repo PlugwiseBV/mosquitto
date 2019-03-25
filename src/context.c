@@ -236,6 +236,12 @@ void context__disconnect(struct mosquitto_db *db, struct mosquitto *ctxt)
 
 void context__add_to_disused(struct mosquitto_db *db, struct mosquitto *context)
 {
+	if(context->id){
+		context__remove_from_by_id(db, context);
+		mosquitto__free(context->id);
+		context->id = NULL;
+	}
+
 	if(db->ll_for_free){
 		context->for_free_next = db->ll_for_free;
 		db->ll_for_free = context;

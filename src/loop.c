@@ -674,11 +674,6 @@ void do_disconnect(struct mosquitto_db *db, struct mosquitto *context)
 		if(context->clean_session){
 #endif
 			context__add_to_disused(db, context);
-			if(context->id){
-				context__remove_from_by_id(db, context);
-				mosquitto__free(context->id);
-				context->id = NULL;
-			}
 		}
 		context->state = mosq_cs_disconnected;
 	}
