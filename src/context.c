@@ -240,6 +240,7 @@ void context__add_to_disused(struct mosquitto_db *db, struct mosquitto *context)
 		context__remove_from_by_id(db, context);
 		mosquitto__free(context->id);
 		context->id = NULL;
+		sub__clean_session(db, context);
 	}
 
 	if(db->ll_for_free){
